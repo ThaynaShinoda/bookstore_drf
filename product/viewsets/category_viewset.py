@@ -7,4 +7,4 @@ class CategoryViewSet(ModelViewSet) :
 
   #Essa é uma outra maneira de declarar o queryset
   def get_queryset(self):
-    return Category.objects.all()
+    return Category.objects.all().order_by('id')
