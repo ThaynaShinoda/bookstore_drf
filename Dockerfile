@@ -17,6 +17,7 @@ RUN apt-get update \
         gcc \
         python3-dev \
         curl \
+        libpq-dev \
     && pip install poetry \
     && rm -rf /var/lib/apt/lists/*
 
