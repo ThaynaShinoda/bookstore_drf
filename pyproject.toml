@@ -10,6 +10,7 @@ readme = "README.md"
 python = ">=3.10"
 django = ">=5.2.6,<6.0.0"
 djangorestframework = ">=3.16.1,<4.0.0"
+django-extensions = "^4.1"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.4.1"
