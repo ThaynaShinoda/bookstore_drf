@@ -26,7 +26,7 @@ COPY pyproject.toml poetry.lock ./
 
 # Instala as dependências usando Poetry (sem criar venv)
 RUN poetry config virtualenvs.create false \
-    && poetry install --only=main --no-root \
+    && poetry install --no-root \
     && rm -rf $POETRY_CACHE_DIR
 
 # Copia todo o código da aplicação
