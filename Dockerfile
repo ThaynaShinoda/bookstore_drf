@@ -32,17 +32,18 @@ RUN poetry config virtualenvs.create false \
 # Copia todo o código da aplicação
 COPY . .
 
+# Script de inicialização (antes de mudar para usuário não-root)
+COPY start.sh /start.sh
+RUN chmod +x /start.sh
+
 # Cria um usuário não-root para segurança
 RUN useradd --create-home --shell /bin/bash app \
-    && chown -R app:app /app
+    && chown -R app:app /app \
+    && chown app:app /start.sh
 USER app
 
 # Expõe a porta que o Django irá usar
 EXPOSE 8000
-
-# Script de inicialização
-COPY start.sh /start.sh
-RUN chmod +x /start.sh
 
 # Comando para iniciar a aplicação
 CMD ["/start.sh"]
