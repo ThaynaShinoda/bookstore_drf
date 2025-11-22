@@ -25,7 +25,11 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-fw(j#bdichdgpt=h^n%72
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = int(os.environ.get('DEBUG', default=1))
 
-ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', '*').split(' ') if os.environ.get('DJANGO_ALLOWED_HOSTS') != '*' else ['*']
+# Temporary fix for Railway deployment
+if os.environ.get('RAILWAY_ENVIRONMENT'):
+    ALLOWED_HOSTS = ['*']
+else:
+    ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', 'localhost 127.0.0.1').split(' ')
 
 
 # Application definition
