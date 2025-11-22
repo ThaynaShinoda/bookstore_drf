@@ -40,8 +40,5 @@ USER app
 # Expõe a porta que o Django irá usar
 EXPOSE 8000
 
-# Coleta arquivos estáticos
-RUN python manage.py collectstatic --noinput
-
 # Comando para iniciar a aplicação
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "config.wsgi:application"]
+CMD ["sh", "-c", "python manage.py migrate && python manage.py collectstatic --noinput && gunicorn --bind 0.0.0.0:${PORT:-8000} config.wsgi:application"]
