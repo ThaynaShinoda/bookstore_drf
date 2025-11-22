@@ -17,9 +17,23 @@ Including another URLconf
 import debug_toolbar
 from django.contrib import admin
 from django.urls import path, re_path, include 
+from django.http import JsonResponse
 from rest_framework.authtoken.views import obtain_auth_token
 
+def health_check(request):
+    return JsonResponse({
+        'status': 'ok',
+        'message': 'Bookstore API is running!',
+        'endpoints': {
+            'admin': '/admin/',
+            'products_v1': '/bookstore/v1/products/',
+            'orders_v1': '/bookstore/v1/orders/',
+            'token_auth': '/api-token-auth/'
+        }
+    })
+
 urlpatterns = [
+    path('', health_check, name='health_check'),
     path('__debug__/', include(debug_toolbar.urls)),
     path('admin/', admin.site.urls),
     re_path('bookstore/(?P<version>(v1|v2))/', include('order.urls')),
