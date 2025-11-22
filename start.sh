@@ -1,0 +1,13 @@
+#!/bin/bash
+set -e
+
+echo "🚀 Starting Django application..."
+
+echo "📊 Running database migrations..."
+python manage.py migrate --verbosity=2
+
+echo "📁 Collecting static files..."  
+python manage.py collectstatic --noinput --verbosity=2
+
+echo "🌟 Starting Gunicorn server..."
+exec gunicorn --bind 0.0.0.0:${PORT:-8000} --workers=2 --timeout=60 config.wsgi:application

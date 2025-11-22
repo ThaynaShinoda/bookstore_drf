@@ -40,5 +40,9 @@ USER app
 # Expõe a porta que o Django irá usar
 EXPOSE 8000
 
+# Script de inicialização
+COPY start.sh /start.sh
+RUN chmod +x /start.sh
+
 # Comando para iniciar a aplicação
-CMD ["sh", "-c", "python manage.py migrate && python manage.py collectstatic --noinput && gunicorn --bind 0.0.0.0:${PORT:-8000} config.wsgi:application"]
+CMD ["/start.sh"]
